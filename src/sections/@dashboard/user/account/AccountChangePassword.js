@@ -1,0 +1,94 @@
+import * as Yup from 'yup';
+// form
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+// @mui
+import { Stack, Card } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+// components
+import Iconify from '../../../../components/iconify';
+import { useSnackbar } from '../../../../components/snackbar';
+import FormProvider, { RHFTextField } from '../../../../components/hook-form';
+// auth
+import { useAuthContext } from '../../../../auth/useAuthContext';
+
+// ----------------------------------------------------------------------
+
+export default function AccountChangePassword() {
+  const { changePassword } = useAuthContext();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const ChangePassWordSchema = Yup.object().shape({
+    oldPassword: Yup.string().required('Old Password is required'),
+    newPassword: Yup.string()
+      .required('New Password is required')
+      .min(6, 'Password must be at least 6 characters')
+      .test(
+        'no-match',
+        'New password must be different than old password',
+        (value, { parent }) => value !== parent.oldPassword
+      ),
+    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword')], 'Passwords must match'),
+  });
+
+  const defaultValues = {
+    oldPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(ChangePassWordSchema),
+    defaultValues,
+  });
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  const onSubmit = async (data) => {
+    try {
+      const result = await changePassword(data);
+      if (result.success) {
+        // Password change was successful
+        enqueueSnackbar(result.message, { variant: 'success' });
+        reset(); // Reset the form
+      } else {
+        // Password change failed
+        enqueueSnackbar(result.message, { variant: 'error' });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Card>
+        <Stack spacing={3} alignItems="flex-end" sx={{ p: 3 }}>
+          <RHFTextField name="oldPassword" type="password" label="Old Password" />
+
+          <RHFTextField
+            name="newPassword"
+            type="password"
+            label="New Password"
+            helperText={
+              <Stack component="span" direction="row" alignItems="center">
+                <Iconify icon="eva:info-fill" width={16} sx={{ mr: 0.5 }} /> Password must be
+                minimum 6+
+              </Stack>
+            }
+          />
+
+          <RHFTextField name="confirmNewPassword" type="password" label="Confirm New Password" />
+
+          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+            Save Changes
+          </LoadingButton>
+        </Stack>
+      </Card>
+    </FormProvider>
+  );
+}
