@@ -1,0 +1,4 @@
+import axios from './axios';
+
+export const fetcher = (url) => axios.get(url).then(res => res.data);
+export const multiFetcher = (urls) => Promise.all(urls.map(url => fetcher(url)));
