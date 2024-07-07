@@ -12,6 +12,7 @@ import { useAuthContext } from './useAuthContext';
 // ----------------------------------------------------------------------
 
 RoleBasedGuard.propTypes = {
+  page: PropTypes.string,
   children: PropTypes.node,
   hasContent: PropTypes.bool,
   roles: PropTypes.arrayOf(PropTypes.string),

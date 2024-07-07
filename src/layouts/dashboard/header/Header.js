@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Stack, AppBar, Toolbar, IconButton, Typography, Box } from '@mui/material';
+import { Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // hooks
@@ -16,11 +16,6 @@ import { useSettingsContext } from '../../../components/settings';
 //
 import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import LanguagePopover from './LanguagePopover';
-import ContactsPopover from './ContactsPopover';
-import NotificationsPopover from './NotificationsPopover';
-//auth
-import { useAuthContext } from 'src/auth/useAuthContext';
 // ----------------------------------------------------------------------
 
 Header.propTypes = {
@@ -31,8 +26,6 @@ export default function Header({ onOpenNav }) {
   const theme = useTheme();
 
   const { themeLayout } = useSettingsContext();
-
-  const { user } = useAuthContext();
 
   const isNavHorizontal = themeLayout === 'horizontal';
 
