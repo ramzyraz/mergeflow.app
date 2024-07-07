@@ -13,9 +13,10 @@ export default function Index() {
   const { pathname, replace, prefetch } = useRouter();
   const { user } = useAuthContext();
   const teamId = user && user.teamId;
-  let PATH = PATH_AFTER_LOGIN;
 
   useEffect(() => {
+    let PATH = PATH_AFTER_LOGIN;
+
     if (pathname === PATH_DASHBOARD.root) {
       if (teamId === "-1" || !teamId) {
         PATH = PATH_AFTER_LOGIN_NO_TEAM;
@@ -24,7 +25,7 @@ export default function Index() {
       replace(PATH);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, teamId, PATH]);
+  }, [pathname, teamId]);
 
   useEffect(() => {
     prefetch(PATH_AFTER_LOGIN);

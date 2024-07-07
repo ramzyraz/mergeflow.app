@@ -6,8 +6,6 @@ import ProfileAbout from './ProfileAbout';
 import ProfilePostCard from './ProfilePostCard';
 import ProfilePostInput from './ProfilePostInput';
 import ProfileFollowInfo from './ProfileFollowInfo';
-import ProfileSocialInfo from './ProfileSocialInfo';
-
 // ----------------------------------------------------------------------
 
 Profile.propTypes = {
@@ -30,8 +28,6 @@ export default function Profile({ info, posts }) {
             company={info.company}
             school={info.school}
           />
-
-          <ProfileSocialInfo socialLinks={info.socialLinks} />
         </Stack>
       </Grid>
 

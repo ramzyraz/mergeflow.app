@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Card, Avatar, Divider, Typography, Stack, IconButton } from '@mui/material';
+import { Box, Card, Avatar, Divider, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../../utils/formatNumber';
-// _mock
-import { _socials } from '../../../../_mock/arrays';
 // components
 import Image from '../../../../components/image';
-import Iconify from '../../../../components/iconify';
 import SvgColor from '../../../../components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -77,22 +74,6 @@ export default function UserCard({ user }) {
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
         {role}
       </Typography>
-
-      <Stack direction="row" alignItems="center" justifyContent="center" sx={{ mt: 1, mb: 3 }}>
-        {_socials.map((social) => (
-          <IconButton
-            key={social.name}
-            sx={{
-              color: social.color,
-              '&:hover': {
-                bgcolor: alpha(social.color, 0.08),
-              },
-            }}
-          >
-            <Iconify icon={social.icon} />
-          </IconButton>
-        ))}
-      </Stack>
 
       <Divider sx={{ borderStyle: 'dashed' }} />
 

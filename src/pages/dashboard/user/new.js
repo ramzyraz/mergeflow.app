@@ -26,7 +26,7 @@ export default function UserCreatePage() {
   const { themeStretch } = useSettingsContext();
   const { user } = useAuthContext();
   const currentRole = user?.type;
-  const isAdmin = currentRole === "admin" ? true : false;
+  const isAdmin = currentRole === "admin";
 
   useEffect(() => {
     if (currentRole && !isAdmin) {
