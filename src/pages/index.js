@@ -9,6 +9,8 @@ export default function HomePage() {
     router.push('/dashboard');
   }, [router]);
 
+  // testing 123
+
   return (
     <ScrollProgress />
   );
